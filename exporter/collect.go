@@ -17,10 +17,14 @@ type Tags struct {
 	Tags []string `json:"tags"`
 }
 
+// Collect sends collected metrics to the Prometheus channel.
 func (c *RegistryCollector) Collect(ch chan<- prometheus.Metric) {
 	c.countRepositoriesAndTags(ch)
 }
 
+// countRepositoriesAndTags counts the number of repositories, the number of
+// tags per repository, and the total number of tags and sends the counts as
+// metrics to the Prometheus channel.
 func (c *RegistryCollector) countRepositoriesAndTags(ch chan<- prometheus.Metric) {
 	totalTags := 0
 
@@ -43,6 +47,8 @@ func (c *RegistryCollector) countRepositoriesAndTags(ch chan<- prometheus.Metric
 	ch <- prometheus.MustNewConstMetric(c.metrics.tags, prometheus.GaugeValue, float64(totalTags))
 }
 
+// listRepositories returns a list of the repositories present in the target
+// registry.
 func (c *RegistryCollector) listRepositories() *Repositories {
 	url := "http://" + c.registryAddress + "/v2/_catalog"
 
@@ -65,6 +71,7 @@ func (c *RegistryCollector) listRepositories() *Repositories {
 	return repos
 }
 
+// listTags returns a list of the tags present in a given repository.
 func (c *RegistryCollector) listTags(repo string) *Tags {
 	url := "http://" + c.registryAddress + "/v2/" + repo + "/tags/list"
 
