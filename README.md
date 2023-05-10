@@ -10,7 +10,6 @@ Exposes the following metrics:
 TBD:
 
 * Add unit tests
-* Add code comments
 * Improve logging and error handling
 * Containerize
 * Add additional metrics
