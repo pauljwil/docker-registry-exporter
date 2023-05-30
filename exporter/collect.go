@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"strings"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/sirupsen/logrus"
@@ -50,7 +51,13 @@ func (c *RegistryCollector) countRepositoriesAndTags(ch chan<- prometheus.Metric
 // listRepositories returns a list of the repositories present in the target
 // registry.
 func (c *RegistryCollector) listRepositories() *Repositories {
-	url := "http://" + c.registryAddress + "/v2/_catalog"
+	url := ""
+
+	if strings.HasPrefix(c.registryAddress, "http://") {
+		url = c.registryAddress + "/v2/_catalog"
+	} else {
+		url = "http://" + c.registryAddress + "/v2/_catalog"
+	}
 
 	resp, err := http.Get(url)
 	if err != nil {
@@ -73,7 +80,13 @@ func (c *RegistryCollector) listRepositories() *Repositories {
 
 // listTags returns a list of the tags present in a given repository.
 func (c *RegistryCollector) listTags(repo string) *Tags {
-	url := "http://" + c.registryAddress + "/v2/" + repo + "/tags/list"
+	url := ""
+
+	if strings.HasPrefix(c.registryAddress, "http://") {
+		url = c.registryAddress + "/v2/" + repo + "/tags/list"
+	} else {
+		url = "http://" + c.registryAddress + "/v2/" + repo + "/tags/list"
+	}
 
 	resp, err := http.Get(url)
 	if err != nil {
