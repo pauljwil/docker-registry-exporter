@@ -9,6 +9,5 @@ Exposes the following metrics:
 
 TODO:
 
-* Improve logging and error handling
 * Containerize
 * Add additional metrics

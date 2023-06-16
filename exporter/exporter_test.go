@@ -63,6 +63,8 @@ func TestNewRegistryCollector(t *testing.T) {
 		"repos",
 		"tags",
 		"tags_per_repository",
+		"scrape_latency",
+		"scrape_errors",
 	}
 
 	bodyBytes, _ := io.ReadAll(resp.Body)

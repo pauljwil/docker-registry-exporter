@@ -7,6 +7,7 @@ func (c *RegistryCollector) Describe(ch chan<- *prometheus.Desc) {
 }
 
 func (c *RegistryCollector) initMetrics() {
+	// Registry metrics
 	c.metrics.repos = prometheus.NewDesc(
 		"repositories",
 		"Number of repositories",
@@ -21,5 +22,17 @@ func (c *RegistryCollector) initMetrics() {
 		"tags_per_repository",
 		"Number of tags per repository",
 		[]string{"repository"}, nil,
+	)
+
+	// Prometheus scrape metrics
+	c.metrics.scrapeLatency = prometheus.NewDesc(
+		"scrape_latency",
+		"Latency of collecting scrape",
+		nil, nil,
+	)
+	c.metrics.scrapeErrors = prometheus.NewDesc(
+		"scrape_errors",
+		"Number of errors while collecting scrape",
+		nil, nil,
 	)
 }
