@@ -18,6 +18,9 @@ type RegistryCollector struct {
 		repos       *prometheus.Desc
 		tags        *prometheus.Desc
 		tagsPerRepo *prometheus.Desc
+
+		scrapeLatency *prometheus.Desc
+		scrapeErrors  *prometheus.Desc
 	}
 }
 
