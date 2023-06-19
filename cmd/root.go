@@ -34,11 +34,11 @@ func Execute() error {
 
 func init() {
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "Config file (default to docker-registry-exporter.yaml)")
-	rootCmd.PersistentFlags().String("listen_address", "127.0.0.1:9055", "Address to listen on for registry metrics")
-	rootCmd.PersistentFlags().String("metrics_path", "/metrics", "Path on which to expose metrics to Prometheus")
-	rootCmd.PersistentFlags().String("registry_address", "127.0.0.1:5000", "Docker registry address")
+	rootCmd.PersistentFlags().String("listen-address", "127.0.0.1:9055", "Address to listen on for registry metrics")
+	rootCmd.PersistentFlags().String("metrics-path", "/metrics", "Path on which to expose metrics to Prometheus")
+	rootCmd.PersistentFlags().String("registry-address", "127.0.0.1:5000", "Docker registry address")
 
-	err := viper.BindPFlag("listen_address", rootCmd.PersistentFlags().Lookup("listen_address"))
+	err := viper.BindPFlag("listen_address", rootCmd.PersistentFlags().Lookup("listen-address"))
 	if err != nil {
 		logrus.Debugf("failed to bind listen address to pflag: %s", err)
 	}
@@ -46,7 +46,7 @@ func init() {
 	if err != nil {
 		logrus.Debugf("failed to bind listen address to env variable: %s", err)
 	}
-	err = viper.BindPFlag("metrics_path", rootCmd.PersistentFlags().Lookup("metrics_path"))
+	err = viper.BindPFlag("metrics_path", rootCmd.PersistentFlags().Lookup("metrics-path"))
 	if err != nil {
 		logrus.Debugf("failed to bind metrics path to pflag: %s", err)
 	}
@@ -54,7 +54,7 @@ func init() {
 	if err != nil {
 		logrus.Debugf("failed to bind metrics path to env variable: %s", err)
 	}
-	err = viper.BindPFlag("registry_address", rootCmd.PersistentFlags().Lookup("registry_address"))
+	err = viper.BindPFlag("registry_address", rootCmd.PersistentFlags().Lookup("registry-address"))
 	if err != nil {
 		logrus.Debugf("failed to bind registry address to pflag: %s", err)
 	}
