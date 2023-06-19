@@ -27,12 +27,12 @@ func (c *RegistryCollector) initMetrics() {
 	// Prometheus scrape metrics
 	c.metrics.scrapeLatency = prometheus.NewDesc(
 		"scrape_latency",
-		"Latency of collecting scrape",
+		"Duration of metrics collection",
 		nil, nil,
 	)
 	c.metrics.scrapeErrors = prometheus.NewDesc(
 		"scrape_errors",
-		"Number of errors while collecting scrape",
+		"Number of errors while collecting metrics",
 		nil, nil,
 	)
 }
