@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  registry-exporter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: docker_registry_exporter
+    restart: unless-stopped
+    ports:
+      - "9055:9055"
+    environment:
+      REGISTRY_ADDRESS: "http://docker.io"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:9055/metrics"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+      start_period: 120s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5" # max 50% of one CPU
+          memory: 256M # max 256MB memory
+        reservations:
+          cpus: "0.25" # guaranteed 25% of one CPU
+          memory: 128M # guaranteed 128MB memory
